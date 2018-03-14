@@ -1,0 +1,12 @@
+{
+  "lib/*.rb": {
+    "alternate": "test/{}_test.rb",
+    "type": "lib"
+  },
+  "test/*_test.rb": {
+    "alternate": "lib/{}.rb",
+    "type": "test",
+    "make": "ruby -Ilib:test",
+    "dispatch": "ruby -Ilib:test {file}"
+  }
+}

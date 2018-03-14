@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'sfkb'
+
+begin
+  h = SFKB.new.authenticate!
+  puts 'Everything seems OK... here is an access token'
+  puts h.access_token
+rescue
+  puts "Error contacting Salesforce. Check your credentials. See here:"
+  puts "https://github.com/bjjb/sfkb"
+end

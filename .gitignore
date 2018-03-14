@@ -1,0 +1,6 @@
+coverage
+.env
+.env.*
+.bundle/
+pkg
+.ackrc
