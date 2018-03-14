@@ -32,13 +32,14 @@ instantiating a `SFKB::Client`.
 For example, here's how to print the titles of the master versions of the
 first 10 documents:
 
-```
+```ruby
 require 'sfkb'
 SFKB.new.articles.take(10).each { |a| puts a.OnlineMasterVersion.data.Title }
 ```
 
 Here's how to list the titles of every translation of every draft article:
-```
+
+```ruby
 sf = SFKB.new
 sf.articles.select(:hasTranslations?) do |a|
     sf.translations(a, 'Draft').each do |t|
