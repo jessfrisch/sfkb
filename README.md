@@ -5,6 +5,8 @@ SalesForce Knowledge Base
 A Ruby library that extends [Restforce][] to provide convenient access to
 Articles and ArticlesVersions in the Salesforce Knowledge Base.
 
+[![Build Status](https://travis-ci.org/bjjb/sfkb.svg?branch=master)](https://travis-ci.org/bjjb/sfkb)
+
 ## Requirements
 
 - [Ruby][]
