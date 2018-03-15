@@ -24,15 +24,29 @@ module SFKB
     def autodefine(object)
       return unless object.respond_to?(:additionalInformation)
       return unless info = object.additionalInformation
-      info.each do |k, v|
-        if [true, false].include?(v)
-          define_predicate(object, k, v)
-        elsif k.to_s == 'data'
-          define_link(object, :data, v)
-        elsif k.to_s == 'urls'
-          define_links(object, v) { |o| autodefine(o) }
-        end
+      autodefine_data(object, info[:data])
+      autodefine_links(object, info[:urls])
+      autodefine_predicates(object, info)
+      object
+    end
+
+    def autodefine_predicates(object, predicates)
+      predicates.each do |k, v|
+        next unless [true, false].include?(v)
+        define_predicate(object, k, v)
       end
+      object
+    end
+
+    def autodefine_data(object, data)
+      return object if data.nil?
+      define_link(object, :data, data)
+      object
+    end
+
+    def autodefine_links(object, urls)
+      return if urls.nil?
+      define_links(object, urls) { |o| autodefine(o) }
       object
     end
   end
