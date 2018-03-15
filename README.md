@@ -6,8 +6,9 @@ A Ruby library that extends [Restforce][] to provide convenient access to
 Articles and ArticlesVersions in the Salesforce Knowledge Base.
 
 [![Build Status](http://img.shields.io/travis/bjjb/sfkb.svg?style=flat-square)](https://travis-ci.org/bjjb/sfkb)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8e717aedee6a4e956683/test_coverage)](https://codeclimate.com/github/bjjb/sfkb/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8e717aedee6a4e956683/maintainability)](https://codeclimate.com/github/bjjb/sfkb/maintainability)
 [![Dependency Status](http://img.shields.io/gemnasium/bjjb/sfkb.svg?style=flat-square)](https://gemnasium.com/bjjb/sfkb)
-[![Code Climate](http://img.shields.io/codeclimate/github/bjjb/sfkb.svg?style=flat-square)](https://codeclimate.com/github/bjjb/sfkb)
 [![Gem Version](http://img.shields.io/gem/v/sfkb.svg?style=flat-square)](https://rubygems.org/gems/sfkb)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://bjjb.mit-license.org)
 

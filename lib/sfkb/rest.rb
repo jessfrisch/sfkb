@@ -2,7 +2,10 @@ module SFKB
   # Some REST helpers
   module REST
     # Used to interpolate variables into REST endpoint URIs
-    @@placeholder = /[<{](.+?)[>}]/
+    @@placeholder = /[<{](.+?)[>}]/.freeze
+
+    # Used to identify URLs; %s should be the api_version
+    @@url_pattern = '/services/data/v%s'.freeze
 
     # { a: :b }.inject({}, &@@stringify) #=> { 'a' => :b }
     @@stringify = lambda do |collector, kv|
@@ -27,24 +30,44 @@ module SFKB
       [path, params].reject(&:nil?).reject(&:empty?).join('?')
     end
 
+    # The starting URL
+    def services_url
+      @@url_pattern % options[:api_version]
+    end
+
     # The REST API starts here
     def index
-      endpoint("/services/data/v#{options[:api_version]}") do |k, v|
-        endpoint(v) { |k, v| endpoint(v) }
-      end
+      endpoint(get(services_url).body)
     end
-   
-    # Fetches the object at url, and extends it with methods
-    def endpoint(url)
-      get(url).body.tap do |o|
-        o.each do |k, v|
-          o.define_singleton_method(k) do
-            ivar = :"@#{k}"
-            return instance_variable_get(ivar) if instance_variable_defined?(ivar)
-            instance_variable_set(ivar, block_given? ? yield(k, v) : v)
-          end
-        end
-      end
+
+    # endpoint takes a map, and for eack key/value pair, adds a singleton
+    # method to the map which will fetch that resource (if it looks like a
+    # URL).
+    def endpoint(map)
+      map.each { |k, v| apply_endpoint(map, k, v) }
+      map
+    end
+
+    # applies an endpoint to obj, named k, which fetches v and makes it an
+    # endpoint if it looks like a URL
+    def apply_endpoint(obj, k, v)
+      α = -> { endpoint(get(v).body) }
+      β = -> { v }
+      λ = url?(v) ? -> { α.call } : -> { β.call }
+      obj.define_singleton_method(k, &λ) if url?(v)
+      obj
+    end
+
+    # Identifies a valid URL for this REST instance
+    def url?(string)
+      return false unless string.to_s =~ url_pattern
+      return false if     string.to_s =~ @@placeholder
+      true
+    end
+
+    # Identifies a valid URL for this REST instance
+    def url_pattern
+      %r{#{services_url}}
     end
 
     extend self
