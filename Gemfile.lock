@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    sfkb (0.1.1)
+    sfkb (0.1.2)
+      dotenv (~> 2.2)
       restforce (~> 2.5)
 
 GEM
@@ -55,7 +56,6 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.16)
   byebug (~> 10.0)
-  dotenv (~> 2.2)
   faraday (~> 0.12)
   hipsterhash (~> 0.0.4)
   minitest (~> 5.11)
