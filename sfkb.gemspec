@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name = 'sfkb'
-  spec.version = '0.1.0'
+  spec.version = '0.1.1'
   spec.authors = ['JJ Buckley']
   spec.email = ['jj@bjjb.org']
   spec.summary = 'SalesForce Knowledge Base helper library'
@@ -20,8 +20,7 @@ DESC
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
   spec.add_dependency 'restforce', '~> 2.5'
-  spec.add_dependency 'oauth2', '~> 1.4'
-  spec.add_dependency 'hipsterhash', '~> 0.0.4'
+  spec.add_development_dependency 'hipsterhash', '~> 0.0.4'
   spec.add_development_dependency 'bundler', '~> 1.16'
   spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'minitest', '~> 5.11'
